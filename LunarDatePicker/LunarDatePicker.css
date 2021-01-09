@@ -1,0 +1,139 @@
+.ldpInput {
+    background: url('cal.gif') 100% 50% no-repeat;
+    padding-right: 20px;
+    cursor: pointer;
+    width: 200px;
+}
+
+.ldpActive {
+    background-image: url('no_cal.gif');
+    background: url('no_cal.gif') 100% 50% no-repeat;
+}
+
+#ldp {
+    position: absolute;
+    visibility: hidden;
+    z-index: 100;
+    width: 20%;
+    min-width: 350px;
+    background-color: white;
+    margin-top: 0.5em;
+    padding: 0.25em;
+    border: 0.1em solid silver;
+    border-radius: 5px;
+    box-shadow: 3px 3px 4px silver;
+    -moz-box-shadow: 3px 3px 4px silver;
+    -webkit-box-shadow: 3px 3px 4px silver;
+    /* ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='silver')"; */
+	filter: progid: DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='silver');
+}
+
+
+/* table containing navigation and current month */
+
+#ldpControls {
+    border-collapse: collapse;
+    border: 0;
+    width: 100%;
+}
+
+#ldpControls td {
+    border-collapse: collapse;
+    border: 0;
+    padding: 0;
+    width: 1em;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+#ldpControls th {
+    border-collapse: collapse;
+    border: 0;
+    padding: 0;
+    line-height: 2em;
+    text-align: center;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+#ldpPrevYear {
+    background-image: url('prev_year.gif');
+}
+
+#ldpPrevMonth {
+    background-image: url('prev_mon.gif');
+}
+
+#ldpNextMonth {
+    background-image: url('next_mon.gif');
+}
+
+#ldpNextYear {
+    background-image: url('next_year.gif');
+}
+
+
+/* table containing week days header and calendar grid */
+
+#ldpGrid {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    /* border: 1px solid silver; */
+    box-shadow: 0 0 0 1px silver;
+    border-radius: 5px;
+    padding: 2px 0;
+    text-align: center;
+}
+
+#ldpGrid tr:last-child td:first-child {
+    border-bottom-left-radius: 5px;
+}
+
+#ldpGrid tr:last-child td:last-child {
+    border-bottom-right-radius: 5px;
+}
+
+#ldpGrid th:first-child {
+    border-top-left-radius: 5px;
+}
+
+#ldpGrid th:last-child {
+    border-top-right-radius: 5px;
+}
+
+#ldpGrid th {
+    width: 14%;
+    background-color: blue;
+    color: white;
+}
+
+#ldpGrid td {
+    width: 14%;
+    cursor: pointer;
+}
+
+#ldpGrid td sub {
+    color: red;
+}
+
+#ldpGrid td.ldpOtherMonth {
+    color: silver;
+}
+
+#ldpGrid td.ldpWeekend {
+    background-color: #ACD6F5;
+}
+
+#ldpGrid td.ldpToday {
+    border: 1px solid red;
+}
+
+#ldpGrid td.ldpSelected {
+    background-color: #FFB3BE;
+}
+
+#ldpGrid td:hover {
+    background-color: #CCCCFF;
+}
