@@ -4,7 +4,7 @@
   text-decoration: line-through;
 }
 
-td{
+.todoTable td{
   border: 1px solid black;
   padding: 5px;
 }
@@ -17,6 +17,10 @@ td{
 
 .todoTable-block{
   margin-top: 1rem;
+}
+
+#todoTable {
+  width: 100%;
 }
 
 .pagination-pages{
@@ -33,7 +37,7 @@ td{
 }
 
 h3 {
-  color:blue;
+  color:rgb(35, 134, 214);
   font-family: 'Rowdies', cursive;
 }
 
@@ -90,7 +94,7 @@ body {
 }
 
 .todo-modal-close-btn{
-  background-color: blue;
+  background-color: rgb(35, 134, 214);
   position: absolute;
   top: 2rem;
   right: 2rem;
@@ -102,6 +106,7 @@ body {
   border-radius: 50%;
   color: white;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .slidedIntoView {
@@ -115,15 +120,12 @@ body {
 
 button{
   background-color: #ACD6F5;
-  border: 1px outset #000;
-}
-
-button:active{
-  border: 1px inset #ed6a5e;
+  border: 0.1px outset #000;
 }
 
 button:hover{
-  background-color: #ffad99;
+  background-color: rgb(35, 134, 214);
+  color: white;
 }
 
 .chevron{

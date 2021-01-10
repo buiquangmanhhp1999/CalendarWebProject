@@ -2,10 +2,9 @@
 <html lang="en">
 
 <head>
-  <!--https://www.youtube.com/playlist?list=PLkqwj9vc20pUitqvZrLPk-hTNv63EJqwg-->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Event's Calendar</title>
+  <title>To-do List</title>
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="todo.css">
@@ -18,13 +17,13 @@
 </head>
 
 <body>
-  <h3>Event's Calendar</h3>
+  <h3>To-do List</h3>
   <div class="todo-grid-parent">
 
     <div>
       <div class="todo-input todo-block">
-        <span>Event: </span>
-        <input type="text" placeholder="Enter new Event">
+        <span>To-do: </span>
+        <input type="text" placeholder="Enter new To-do">
         <span>Category: </span>
         <input type="text" placeholder="Enter category" list="categoryList">
         <datalist id="categoryList">
@@ -33,7 +32,7 @@
           <option value="Study"></option>
         </datalist>
         <span>Date:</span>
-        <input class="ldp" id="dateInput">
+        <input class="ldp" id="dateInput" placeholder="mm/dd/yyyy">
         <span>Time:</span>
         <input type="time" id="timeInput">
         <span></span>
@@ -57,15 +56,15 @@
 
         <table id="todoTable">
           <tr>
-            <td></td>
-            <td>Date</td>
-            <td>Time</td>
-            <td>Event</td>
-            <td>
+            <th></th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>To-do</th>
+            <th>
               <select id="categoryFilter">
               </select>
-            </td>
-            <td></td>
+            </th>
+            <th></th>
           </tr>
         </table>
 
@@ -85,8 +84,8 @@
   <div class="todo-overlay" id="todo-overlay">
     <div class="todo-modal" id="todo-modal">
       <div class="todo-input todo-block">
-        <span>Event: </span>
-        <input type="text" placeholder="Enter new Event" id="todo-edit-todo">
+        <span>To-do: </span>
+        <input type="text" placeholder="Enter new To-do" id="todo-edit-todo">
         <span>Category: </span>
         <input type="text" placeholder="Enter category" list="categoryList" id="todo-edit-category">
         <datalist id="categoryList">
@@ -94,7 +93,7 @@
           <option value="Work"></option>
         </datalist>
         <span>Date:</span>
-        <input class="ldp" id="todo-edit-date">
+        <input class="ldp" id="todo-edit-date" placeholder="mm/dd/yyyy">
         <span>Time:</span>
         <input type="time" id="todo-edit-time">
         <span></span>

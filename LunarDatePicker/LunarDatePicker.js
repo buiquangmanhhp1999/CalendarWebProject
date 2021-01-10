@@ -433,7 +433,7 @@ function lunarDatePickerCancel() {
         element_id.style.visibility = '';
     var list_input_element = lunarDatePickerGetInputs();
     for (var i = 0; i < list_input_element.length; i++)
-        lunarDatePickerRemoveClass(list_input_element[i], LDP_CONFIG.ldp_prefix + 'Active');
+        list_input_element[i].classList.remove(LDP_CONFIG.ldp_prefix + 'Active');
 }
 
 function lunarDatePickerUpdate(obj_date, keep_open) {
@@ -454,14 +454,14 @@ function lunarDatePickerUpdate(obj_date, keep_open) {
 
 function lunarDatePickerShow() {
     // see if already opened
-    var check_has_class = lunarDatePickerHasClass(this, LDP_CONFIG.ldp_prefix + 'Active');
+    var check_has_class = this.classList.contains(LDP_CONFIG.ldp_prefix + 'Active')
 
     // close all clalendars
     lunarDatePickerCancel();
     if (check_has_class) return;
 
     // get position of input
-    lunarDatePickerAddClass(this, LDP_CONFIG.ldp_prefix + 'Active');
+    this.classList.add(LDP_CONFIG.ldp_prefix + 'Active');
 
     var pos_left = lunarDatePickerGetPosition(this, 'Left');
     var pos_top = lunarDatePickerGetPosition(this, 'Top') + this.offsetHeight;
@@ -532,49 +532,13 @@ function lunarDatePickerGetInputs(hasActive) {
         input_element = list_input_element[i];
         if (!input_element.type || input_element.type != 'text')
             continue;
-        if (!lunarDatePickerHasClass(input_element, LDP_CONFIG.ldp_prefix))
+        if (!input_element.classList.contains(LDP_CONFIG.ldp_prefix))
             continue;
-        if (hasActive && lunarDatePickerHasClass(input_element, LDP_CONFIG.ldp_prefix + 'Active'))
+        if (hasActive && input_element.classList.contains(LDP_CONFIG.ldp_prefix + 'Active'))
             return input_element;
         res[res.length] = input_element;
     }
     return hasActive ? null : res;
-}
-
-function lunarDatePickerHasClass(element, class_name) {
-    var string_class = element.className;
-    if (!string_class)
-        return false;
-    var list_class = string_class.split(' ');
-    for (var i = 0; i < list_class.length; i++)
-        if (list_class[i] == class_name)
-            return true;
-    return false;
-}
-
-function lunarDatePickerAddClass(element, class_name) {
-    if (lunarDatePickerHasClass(element, class_name))
-        return;
-
-    var string_class = element.className;
-    element.className = (string_class ? string_class + ' ' : '') + class_name;
-}
-
-function lunarDatePickerRemoveClass(element, class_name) {
-    var string_class = element.className;
-    if (!string_class || string_class.indexOf(class_name) == -1)
-        return false;
-
-    var list_class = string_class.split(' ');
-    var list_new_class = [];
-
-    for (var i = 0; i < list_class.length; i++) {
-        if (list_class[i] == class_name)
-            continue;
-        list_new_class[list_new_class.length] = list_class[i];
-    }
-    element.className = list_new_class.join(' ');
-    return true;
 }
 
 function lunarDatePickerGetPosition(element_ref, direction) {
@@ -606,7 +570,7 @@ function lunarDatePickerInit() {
     for (var i = 0; i < list_input_element.length; i++) {
         input_element = list_input_element[i];
         input_element.onclick = lunarDatePickerShow;
-        lunarDatePickerAddClass(input_element, LDP_CONFIG.ldp_prefix + 'Input');
+        input_element.classList.add(LDP_CONFIG.ldp_prefix + 'Input');
     }
 
     window.token_index = {};
