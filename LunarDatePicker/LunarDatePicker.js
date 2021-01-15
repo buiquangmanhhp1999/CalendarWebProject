@@ -195,7 +195,7 @@ var LDP_CONFIG = {
     'nextyear': 'Next year',
     'prevmonth': 'Previous month',
     'nextmonth': 'Next month',
-    'format': 'm/d/Y' // 'd-m-Y', Y-m-d', 'l, F jS Y'
+    'format': 'm/d/Y'
 };
 
 var LDP_TOKENS = [
@@ -426,7 +426,6 @@ function lunarDatePickerSetTime(date_date) {
     return date_date;
 }
 
-// closes calendar and returns all inputs to default state
 function lunarDatePickerCancel() {
     var element_id = document.getElementById(LDP_CONFIG.ldp_prefix);
     if (element_id)

@@ -19,49 +19,48 @@
 <body>
   <h3>To-do List</h3>
   <div class="todo-grid-parent">
-
     <div>
       <div class="todo-input todo-block">
-        <span>To-do: </span>
-        <input type="text" placeholder="Enter new To-do">
-        <span>Category: </span>
-        <input type="text" placeholder="Enter category" list="categoryList">
-        <datalist id="categoryList">
+        <span>To-do:</span>
+        <input type="text" id="inputTodo" placeholder="Enter new To-do">
+        <span>Category:</span>
+        <input type="text" id="inputCate" placeholder="Enter category" list="listCate">
+        <datalist id="listCate">
           <option value="Playing"></option>
           <option value="Work"></option>
           <option value="Study"></option>
         </datalist>
         <span>Date:</span>
-        <input class="ldp" id="dateInput" placeholder="mm/dd/yyyy">
+        <input class="ldp" id="inputDate" placeholder="mm/dd/yyyy">
         <span>Time:</span>
-        <input type="time" id="timeInput">
+        <input type="time" id="inputTime">
         <span></span>
-        <button id="addBtn">Add</button>
+        <button id="btnAdd">Add</button>
         <span></span>
-        <button id="sortBtn">Sort by Date</button>
+        <button id="btnSort">Sort by Date</button>
         <span></span>
-        <label><input type="checkbox" id="shortlistBtn"> Incomplete First </label>
+        <label><input type="checkbox" id="checkSort"> Incomplete First </label>
 
       </div>
 
       <div class="todo-block todoTable-block">
         <div class="itemsPerPage">
           <span>items per page</span>
-          <select id="itemsPerPageSelectElem">
+          <select id="selectItemsPerPage">
             <option>5</option>
             <option>10</option>
             <option>20</option>
           </select>
         </div>
 
-        <table id="todoTable">
+        <table id="tableTodo">
           <tr>
             <th></th>
             <th>Date</th>
             <th>Time</th>
             <th>To-do</th>
             <th>
-              <select id="categoryFilter">
+              <select id="selectFilterCate">
               </select>
             </th>
             <th></th>
@@ -87,8 +86,8 @@
         <span>To-do: </span>
         <input type="text" placeholder="Enter new To-do" id="todo-edit-todo">
         <span>Category: </span>
-        <input type="text" placeholder="Enter category" list="categoryList" id="todo-edit-category">
-        <datalist id="categoryList">
+        <input type="text" placeholder="Enter category" list="listCate" id="todo-edit-category">
+        <datalist id="listCate">
           <option value="Personal"></option>
           <option value="Work"></option>
         </datalist>
@@ -97,7 +96,7 @@
         <span>Time:</span>
         <input type="time" id="todo-edit-time">
         <span></span>
-        <button id="changeBtn">Save Change</button>
+        <button id="btnChange">Save Change</button>
       </div>
     </div>
     <div class="todo-modal-close-btn" id="todo-modal-close-btn">X</div>

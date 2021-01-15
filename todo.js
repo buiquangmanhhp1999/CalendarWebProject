@@ -3,22 +3,23 @@ todoMain();
 function todoMain() {
   const DEFAULT_OPTION = "Choose category";
 
-  let inputElem,
-    inputElem2,
-    dateInput,
-    timeInput,
-    addButton,
-    sortButton,
-    selectElem,
-    todoList = [],
+  let todoList = [],
     calendar,
-    shortlistBtn,
-    changeBtn,
-    todoTable,
+    inputTodo,
+    inputCate,
+    listCate,
+    inputDate,
+    inputTime,
+    btnAdd,
+    btnSort,
+    checkSort,
+    tableTodo,
+    selectFilterCate,
+    btnChange,
     currentPage = 1,
-    itemsPerPage = Number.parseInt(localStorage.getItem("todo-itemsPerPage")) || 5,
     totalPages = 0,
-    itemsPerPageSelectElem;
+    itemsPerPage = Number.parseInt(localStorage.getItem("todo-itemsPerPage")) || 5,
+    selectItemsPerPage;
 
   getElements();
   addListeners();
@@ -28,61 +29,58 @@ function todoMain() {
   updateSelectOptions();
 
   function getElements() {
-    inputElem = document.getElementsByTagName("input")[0];
-    inputElem2 = document.getElementsByTagName("input")[1];
-    dateInput = document.getElementById("dateInput");
-    timeInput = document.getElementById("timeInput");
-    addButton = document.getElementById("addBtn");
-    sortButton = document.getElementById("sortBtn");
-    selectElem = document.getElementById("categoryFilter");
-    shortlistBtn = document.getElementById("shortlistBtn");
-    changeBtn = document.getElementById("changeBtn");
-    todoTable = document.getElementById("todoTable");
-    itemsPerPageSelectElem = document.getElementById("itemsPerPageSelectElem");
+    inputTodo = document.getElementById("inputTodo");
+    inputCate = document.getElementById("inputCate");
+    listCate = document.getElementById("listCate");
+    inputDate = document.getElementById("inputDate");
+    inputTime = document.getElementById("inputTime");
+    btnAdd = document.getElementById("btnAdd");
+    btnSort = document.getElementById("btnSort");
+    selectFilterCate = document.getElementById("selectFilterCate");
+    checkSort = document.getElementById("checkSort");
+    btnChange = document.getElementById("btnChange");
+    tableTodo = document.getElementById("tableTodo");
+    selectItemsPerPage = document.getElementById("selectItemsPerPage");
   }
 
   function addListeners() {
-    addButton.addEventListener("click", addEntry, false);
-    sortButton.addEventListener("click", sortEntry, false);
-    selectElem.addEventListener("change", multipleFilter, false);
-    shortlistBtn.addEventListener("change", multipleFilter, false);
+    btnAdd.addEventListener("click", addTodo, false);
+    btnSort.addEventListener("click", sortEntry, false);
+    selectFilterCate.addEventListener("change", multipleFilter, false);
+    checkSort.addEventListener("change", multipleFilter, false);
     document.getElementById("todo-modal-close-btn").addEventListener("click", closeEditModalBox, false);
-    changeBtn.addEventListener("click", commitEdit, false);
+    btnChange.addEventListener("click", commitEdit, false);
     document.addEventListener("click", onDocumentClick, false);
-    itemsPerPageSelectElem.addEventListener("change", selectItemsPerPage, false);
+    selectItemsPerPage.addEventListener("change", selectedItemsPerPage, false);
   }
 
-  function addEntry(event) {
-    let inputValue = inputElem.value;
-    inputElem.value = "";
+  function addTodo(event) {
+    let inputTodoValue = inputTodo.value;
+    inputTodo.value = "";
 
-    let inputValue2 = inputElem2.value;
-    inputElem2.value = "";
+    let inputCateValue = inputCate.value;
+    inputCate.value = "";
 
-    let dateValue = dateInput.value;
-    var date_date = new Date(dateValue);
-    dateValue = date_date.getFullYear() + "-" + ((date_date.getMonth() + 1) < 10 ? '0' : '') + (date_date.getMonth() + 1) + "-" + (date_date.getDate() < 10 ? '0' : '') + date_date.getDate();
-    // console.log(dateValue);
-    dateInput.value = "";
+    let inputDateValue = inputDate.value;
+    var date_date = new Date(inputDateValue);
+    inputDateValue = date_date.getFullYear() + "-" + ((date_date.getMonth() + 1) < 10 ? '0' : '') + (date_date.getMonth() + 1) + "-" + (date_date.getDate() < 10 ? '0' : '') + date_date.getDate();
+    inputDate.value = "";
 
-    let timeValue = timeInput.value;
-    timeInput.value = "";
+    let inputTimeValue = inputTime.value;
+    inputTime.value = "";
 
     let obj = {
       id: _uuid(),
-      todo: inputValue,
-      category: inputValue2,
-      date: dateValue,
-      time: timeValue,
+      todo: inputTodoValue,
+      category: inputCateValue,
+      date: inputDateValue,
+      time: inputTimeValue,
       done: false,
     };
 
     renderRow(obj);
-
     todoList.push(obj);
-
     save();
-
     updateSelectOptions();
   }
 
@@ -95,19 +93,25 @@ function todoMain() {
 
     let optionsSet = new Set(options);
 
-    // empty the select options
-    selectElem.innerHTML = "";
+    selectFilterCate.innerHTML = "";
+    listCate.innerHTML = "";
 
     let newOptionElem = document.createElement('option');
     newOptionElem.value = DEFAULT_OPTION;
     newOptionElem.innerText = DEFAULT_OPTION;
-    selectElem.appendChild(newOptionElem);
+    selectFilterCate.appendChild(newOptionElem);
 
     for (let option of optionsSet) {
       let newOptionElem = document.createElement('option');
       newOptionElem.value = option;
       newOptionElem.innerText = option;
-      selectElem.appendChild(newOptionElem);
+      selectFilterCate.appendChild(newOptionElem);
+    }
+    for (let option of optionsSet) {
+      let newOptionElem = document.createElement('option');
+      newOptionElem.value = option;
+      newOptionElem.innerText = option;
+      listCate.appendChild(newOptionElem);
     }
   }
 
@@ -122,7 +126,7 @@ function todoMain() {
     if (todoList == null)
       todoList = [];
 
-    itemsPerPageSelectElem.value = itemsPerPage;
+    selectItemsPerPage.value = itemsPerPage;
   }
 
   function renderRows(arr) {
@@ -143,9 +147,9 @@ function todoMain() {
     })
   }
 
-  function renderRow({ todo: inputValue, category: inputValue2, id, date, time, done }) {
+  function renderRow({ todo: inputTodoValue, category: inputCateValue, id, date, time, done }) {
     // add a new row
-    let table = document.getElementById("todoTable");
+    let table = document.getElementById("tableTodo");
 
     let trElem = document.createElement("tr");
     table.appendChild(trElem);
@@ -174,12 +178,12 @@ function todoMain() {
 
     // to-do cell
     let tdElem2 = document.createElement("td");
-    tdElem2.innerText = inputValue;
+    tdElem2.innerText = inputTodoValue;
     trElem.appendChild(tdElem2);
 
     // category cell
     let tdElem3 = document.createElement("td");
-    tdElem3.innerText = inputValue2;
+    tdElem3.innerText = inputCateValue;
     tdElem3.className = "categoryCell";
     trElem.appendChild(tdElem3);
 
@@ -213,7 +217,6 @@ function todoMain() {
     }
 
     dateElem.dataset.type = "date";
-    //dateElem.dataset.value = date;
     timeElem.dataset.type = "time";
     tdElem2.dataset.type = "todo";
     tdElem3.dataset.type = "category";
@@ -322,11 +325,11 @@ function todoMain() {
   function multipleFilter() {
     clearTable();
 
-    let selection = selectElem.value;
+    let selection = selectFilterCate.value;
 
     if (selection == DEFAULT_OPTION) {
 
-      if (shortlistBtn.checked) {
+      if (checkSort.checked) {
         let resultArray = [];
 
         let filteredIncompleteArray = todoList.filter(obj => obj.done == false);
@@ -345,7 +348,7 @@ function todoMain() {
 
       let filteredCategoryArray = todoList.filter(obj => obj.category == selection);
 
-      if (shortlistBtn.checked) {
+      if (checkSort.checked) {
         let resultArray = [];
 
         let filteredIncompleteArray = filteredCategoryArray.filter(obj => obj.done == false);
@@ -415,7 +418,7 @@ function todoMain() {
     save();
 
     // Update the table
-    let tdNodeList = todoTable.querySelectorAll(`td[data-id='${id}']`);
+    let tdNodeList = tableTodo.querySelectorAll(`td[data-id='${id}']`);
     for (let i = 0; i < tdNodeList.length; i++) {
       let type = tdNodeList[i].dataset.type;
       switch (type) {
@@ -454,10 +457,11 @@ function todoMain() {
 
     document.getElementById("todo-edit-todo").value = todo;
     document.getElementById("todo-edit-category").value = category;
-    document.getElementById("todo-edit-date").value = date;
+    let date_date = new Date(date);
+    document.getElementById("todo-edit-date").value = ((date_date.getMonth() + 1) < 10 ? '0' : '') + (date_date.getMonth() + 1) + "/" + (date_date.getDate() < 10 ? '0' : '') + date_date.getDate() + "/" + date_date.getFullYear();
     document.getElementById("todo-edit-time").value = time;
 
-    changeBtn.dataset.id = id;
+    btnChange.dataset.id = id;
   }
 
   function calendarEventDragged(event) {
@@ -493,6 +497,7 @@ function todoMain() {
   }
 
   function onDocumentClick(event) {
+    console.log(event.target.dataset.pagination);
     switch (event.target.dataset.pagination) {
       case "pageNumber":
         currentPage = Number(event.target.innerText);
@@ -510,6 +515,7 @@ function todoMain() {
         currentPage = totalPages;
         break;
       default:
+        break;
     }
     multipleFilter();
   }
@@ -537,7 +543,7 @@ function todoMain() {
     pageNumberDiv.innerHTML += `<span class="material-icons chevron" data-pagination="lastPage">last_page</span>`;
   }
 
-  function selectItemsPerPage(event) {
+  function selectedItemsPerPage(event) {
     itemsPerPage = Number(event.target.value);
     localStorage.setItem("todo-itemsPerPage", itemsPerPage);
     multipleFilter();

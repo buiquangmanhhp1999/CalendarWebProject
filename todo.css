@@ -19,10 +19,6 @@
   margin-top: 1rem;
 }
 
-#todoTable {
-  width: 100%;
-}
-
 .pagination-pages{
   text-align: right;
 }
@@ -114,10 +110,6 @@ body {
   transition: transform 650ms;
 }
 
-#todoTable tr:nth-child(even) {
-  background-color: #ACD6F5;
-}
-
 button{
   background-color: #ACD6F5;
   border: 0.1px outset #000;
@@ -139,4 +131,12 @@ button:hover{
 
 #calendar .fc-today {
   background: #ACD6F5 !important;
+}
+
+#tableTodo {
+  width: 100%;
+}
+
+#tableTodo tr:nth-child(even) {
+  background-color: #ACD6F5;
 }
