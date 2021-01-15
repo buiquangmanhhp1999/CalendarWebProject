@@ -69,6 +69,8 @@ function todoMain() {
     let inputTimeValue = inputTime.value;
     inputTime.value = "";
 
+    console.log(typeof(inputTimeValue));
+    console.log(typeof(false));
     let obj = {
       id: _uuid(),
       todo: inputTodoValue,
@@ -333,10 +335,8 @@ function todoMain() {
         let resultArray = [];
 
         let filteredIncompleteArray = todoList.filter(obj => obj.done == false);
-        //renderRows(filteredIncompleteArray);
 
         let filteredDoneArray = todoList.filter(obj => obj.done == true);
-        //renderRows(filteredDoneArray);
 
         resultArray = [...filteredIncompleteArray, ...filteredDoneArray];
         renderRows(resultArray);
@@ -352,10 +352,8 @@ function todoMain() {
         let resultArray = [];
 
         let filteredIncompleteArray = filteredCategoryArray.filter(obj => obj.done == false);
-        //renderRows(filteredIncompleteArray);
 
         let filteredDoneArray = filteredCategoryArray.filter(obj => obj.done == true);
-        //renderRows(filteredDoneArray);
 
         resultArray = [...filteredIncompleteArray, ...filteredDoneArray];
         renderRows(resultArray);
@@ -367,7 +365,6 @@ function todoMain() {
 
   function formatDate(date) {
     let dateObj = new Date(date);
-    // console.log(date);
     let formattedDate = dateObj.toLocaleString("en-GB", {
       month: "long",
       day: "numeric",
@@ -390,7 +387,8 @@ function todoMain() {
     let id = event.target.dataset.id;
     let todo = document.getElementById("todo-edit-todo").value;
     let category = document.getElementById("todo-edit-category").value;
-    let date = document.getElementById("todo-edit-date").value;
+    let date_date = new Date(document.getElementById("todo-edit-date").value);
+    let date = date_date.getFullYear() + "-" + ((date_date.getMonth() + 1) < 10 ? '0' : '') + (date_date.getMonth() + 1) + "-" + (date_date.getDate() < 10 ? '0' : '') + date_date.getDate();
     let time = document.getElementById("todo-edit-time").value;
 
     // remove from calendar
@@ -412,6 +410,7 @@ function todoMain() {
           title: todoList[i].todo,
           start: todoList[i].date,
         });
+        console.log(todoList[i].todo);
       }
     }
 
@@ -482,7 +481,6 @@ function todoMain() {
     }
 
     let toStoreDate = `${year}-${paddedMonth}-${paddedDate}`;
-    // console.log(toStoreDate);
 
     todoList.forEach(todoObj => {
       if (todoObj.id == id) {
@@ -497,7 +495,6 @@ function todoMain() {
   }
 
   function onDocumentClick(event) {
-    console.log(event.target.dataset.pagination);
     switch (event.target.dataset.pagination) {
       case "pageNumber":
         currentPage = Number(event.target.innerText);
